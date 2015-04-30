@@ -44,15 +44,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<section id="content">
 		<div class="container">
-			<?php if ($this->session->flashdata('tambah')) { ?>
-        		<div class="alert alert-success"> <?= $this->session->flashdata('tambah') ?> </div>
-    		<?php } ?>
-    		<?php if ($this->session->flashdata('update')) { ?>
-        		<div class="alert alert-info"> <?= $this->session->flashdata('update') ?> </div>
-    		<?php } ?>
-    		<?php if ($this->session->flashdata('delete')) { ?>
-        		<div class="alert alert-danger"> <?= $this->session->flashdata('delete') ?> </div>
-    		<?php } ?>
+			<?php if ($this->session->flashdata('tambah')) : ?>
+			<div class="alert alert-success alert-dismissible" role="alert">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Sukses!</strong> data berhasil ditambahkan.
+			</div>
+    		<?php endif ?>
+
+    		<?php if ($this->session->flashdata('update')) : ?>
+    		<div class="alert alert-info alert-dismissible" role="alert">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Info!</strong> data berhasil diperbarui.
+			</div>
+    		<?php endif ?>
+
+    		<?php if ($this->session->flashdata('delete')) : ?>
+    		<div class="alert alert-danger alert-dismissible" role="alert">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Warning!</strong> data telah dihapus.
+			</div>
+    		<?php endif ?>
+    		
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
@@ -79,7 +91,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				            <th>No. Hp</th>
 		    				<th>Pilihan</th>
 		  				</tr>
-		        	<?php foreach ($data as $d) { ?>
+		        	<?php
+		        		$no = $offset;
+		        		foreach ($data as $d) { ?>
 		  				<tr>
 		    				<td><?php echo $d['nis']; ?></td>
 				            <td><?php echo $d['nama_siswa']; ?></td>
@@ -100,6 +114,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  				</tr>
 		  				<?php } ?>
 					</table>
+					<div class="row">
+						<div class="col-xs-12 col-md-8">&nbsp;</div>
+  						<div class="col-xs-6 col-md-4 text-right">
+  							<?php echo $halaman ?>
+  						</div>
+					</div>
 				</div>
 			</div>
 			

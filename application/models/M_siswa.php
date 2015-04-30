@@ -8,9 +8,9 @@ class M_siswa extends CI_Model {
 		// model guru
 	}
 
-	public function get_siswa()
+	public function get_siswa($num, $offset)
 	{
-		$query = $this->db->get('siswa');
+		$query = $this->db->get('siswa', $num, $offset);
 		return $query->result_array();
 	}
 

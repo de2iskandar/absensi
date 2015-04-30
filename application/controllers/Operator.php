@@ -15,10 +15,33 @@ class Operator extends CI_Controller {
 		$this->view_siswa();
 	}
 
-	public function view_siswa()
+	public function view_siswa($offset=0)
 	{
-		$data = $this->M_siswa->get_siswa('siswa');
-		$this->load->view('operator/view_siswa', array('data' => $data));
+		$jml = $this->db->get('siswa');
+		$config['base_url'] = base_url().'/operator/view_siswa';
+		$config['total_rows'] = $jml->num_rows();
+		$config['per_page'] = 3;
+		$config['uri_segment'] = 3;
+		$config['full_tag_open'] = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+
+		$this->pagination->initialize($config);
+		$data['halaman'] = $this->pagination->create_links();
+		$data['offset'] = $offset;
+		$data['data'] = $this->M_siswa->get_siswa($config['per_page'], $offset);
+		$this->load->view('operator/view_siswa',$data);
 	}
 
 	public function add_siswa()
