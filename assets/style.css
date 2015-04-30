@@ -1,0 +1,77 @@
+body{
+	font-family: raleway;
+}
+
+#header{
+	background: #27ae60;
+	color: #dff0e5;
+	max-height: 70px;
+}
+
+#header .navbar-right{
+	margin-top: 8px;
+}
+
+.navbar-brand{
+	font-size: 24px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+#menubar{
+	background: #ebebeb;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #57626f;
+	background: transparent;
+	border-bottom: 4px solid #e74c3c;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+	border-bottom: 4px solid #e74c3c;
+	color: #4f5965;
+}
+
+.navbar{
+	margin-bottom: 0px;
+}
+
+.navbar-default{
+	background: transparent;
+	border: none;
+}
+
+.nav >li {
+	color: #4f5965;
+	margin-top: 14px;
+}
+.nav > li > a{
+	color: #ebebeb;
+}
+
+.nav > li > a:hover{
+	background: transparent;
+	color: #fff;
+}
+
+.navbar-nav > li > a{
+	padding-top: 0px;
+	padding-bottom: 12px;
+}
+.glyphicon{
+	margin-right: 5px;
+}
+
+#menubar .navbar-right{
+	margin-right: 0px;
+
+}
+
+#content{
+	margin-top: 32px;
+}
+
+#content h4{
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
