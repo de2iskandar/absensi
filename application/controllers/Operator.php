@@ -8,6 +8,9 @@ class Operator extends CI_Controller {
 
 		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('M_siswa');
+		$this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->helper('file');
 	}
 
 	public function index()
@@ -20,7 +23,7 @@ class Operator extends CI_Controller {
 		$jml = $this->db->get('siswa');
 		$config['base_url'] = base_url().'/operator/view_siswa';
 		$config['total_rows'] = $jml->num_rows();
-		$config['per_page'] = 3;
+		$config['per_page'] = 10;
 		$config['uri_segment'] = 3;
 		$config['full_tag_open'] = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
 		$config['full_tag_close'] ="</ul>";
@@ -129,5 +132,66 @@ class Operator extends CI_Controller {
 			$this->session->set_flashdata('delete', 'Sukses! data berhasil dihapus');
     	 	redirect('operator');
     	} 
+	}
+
+	public function import_siswa()
+	{
+		$this->load->view('operator/import_siswa');
+	}
+
+	public function do_import_siswa()
+	{
+		$config['upload_path'] = './temp_upload/';
+		$config['allowed_types'] = 'xls';
+                
+		$this->load->library('upload', $config);
+                
+
+		if ( ! $this->upload->do_upload())
+		{
+			$data = array('error' => $this->upload->display_errors());
+			
+		}
+		else
+		{
+            $data = array('error' => false);
+			$upload_data = $this->upload->data();
+
+            $this->load->library('excel_reader');
+			$this->excel_reader->setOutputEncoding('CP1251');
+
+			$file =  $upload_data['full_path'];
+			$this->excel_reader->read($file);
+			error_reporting(E_ALL ^ E_NOTICE);
+
+			// Sheet 1
+			$data = $this->excel_reader->sheets[0] ;
+                        $dataexcel = Array();
+			for ($i = 1; $i <= $data['numRows']; $i++) {
+
+                            if($data['cells'][$i][1] == '') break;
+                            $dataexcel[$i-1]['nis'] = $data['cells'][$i][1];
+                            $dataexcel[$i-1]['nama_siswa'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['jk'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['alamat'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['kelas'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['nama_ayah'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['pekerjaan'] = $data['cells'][$i][2];
+                            $dataexcel[$i-1]['hp'] = $data['cells'][$i][2];
+
+			}
+
+            delete_files($upload_data['file_path']);
+    		$this->M_siswa->import_siswa($dataexcel);
+			
+         
+    	}
+			$this->session->set_flashdata('import', '');
+			redirect('operator/view_siswa');   
+	}
+
+	public function export_siswa()
+	{
+		
 	}
 }

@@ -64,6 +64,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   				<strong>Warning!</strong> data telah dihapus.
 			</div>
     		<?php endif ?>
+
+    		<?php if ($this->session->flashdata('import')) : ?>
+    		<div class="alert alert-danger alert-dismissible" role="alert">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Sukses!</strong> data telah diimport.
+			</div>
+    		<?php endif ?>
     		
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -72,6 +79,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<h4>Daftar Siswa</h4>
 						</div>
   						<div class="col-xs-6 col-md-4 text-right">
+  							<a href="<?php echo base_url()."operator/import_siswa"; ?>">
+								<button type="button" class="btn btn-success btn-sm">Import</button>
+							</a>
+
+							<a href="<?php echo base_url()."operator/export_siswa"; ?>">
+								<button type="button" class="btn btn-success btn-sm">Export</button>
+							</a>
+
   							<a href="<?php echo base_url()."operator/add_siswa"; ?>">
 								<button type="button" class="btn btn-success btn-sm">Tambah</button>
 							</a>

@@ -26,6 +26,23 @@ class M_siswa extends CI_Model {
 		return $query;
 	}
 
+	function import_siswa($dataarray)
+    {
+        for($i=0;$i<count($dataarray);$i++){
+            $data = array(
+                'nis'=>$dataarray[$i]['nis'],
+                'nama_siswa'=>$dataarray[$i]['nama_siswa'],
+                'jk'=>$dataarray[$i]['jk'],
+                'alamat'=>$dataarray[$i]['alamat'],
+                'kelas'=>$dataarray[$i]['kelas'],
+                'nama_ayah'=>$dataarray[$i]['nama_ayah'],
+                'pekerjaan'=>$dataarray[$i]['pekerjaan'],
+                'hp'=>$dataarray[$i]['hp']
+            );
+            $this->db->insert('siswa', $data);
+        }
+    }
+
 	public function delete_siswa($nis)
 	{
 		$query = $this->db->delete('siswa', array('nis' => $nis));
