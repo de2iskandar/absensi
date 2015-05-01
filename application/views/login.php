@@ -14,7 +14,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 	
 <body>
-	
+	<div class="container">    
+        <div id="loginbox" style="margin-top: 150px; margin-left: 35%; width: 30%; " class="mainbox">                    
+            <div class="panel panel-info" >
+                <div class="panel-heading">
+                    <div class="panel-title text-center"><h1>Absensi Siswa Realtime</h1></div>
+                </div>     
+
+                <div style="padding-top:20px" class="panel-body" >
+
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                    <form id="loginform" class="form-horizontal" role="form">
+                                    
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Masukan ID">                                        
+                        </div>
+                                
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="login-password" type="password" class="form-control" name="password" placeholder="Masukan Kata Sandi">
+                        </div>
+                                    
+                       	<div style="margin-top:10px" class="form-group">
+                        <!-- Button -->
+
+	                        <div class="col-sm-12 controls">
+	                          	<a id="btn-login" href="#" class="btn btn-success col-sm-12">Login</a>
+	                        </div>
+                       	</div>    
+                    </form>
+                </div>                     
+            </div>  
+        </div>
+    </div>
+    
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

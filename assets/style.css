@@ -75,3 +75,8 @@ body{
 	margin-top: 5px;
 	margin-bottom: 0px;
 }
+
+#footer{
+	margin-bottom: 16px;
+	color: gray;
+}

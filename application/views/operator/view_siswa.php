@@ -142,7 +142,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 
 	<section id="footer">
-		
+		<div class="container">
+			<p class="text-center">&copy; 2015 Pemrograman Internet IF UIN SGD 2012</p>
+		</div>
 	</section>
 
 
