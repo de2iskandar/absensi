@@ -192,6 +192,59 @@ class Operator extends CI_Controller {
 
 	public function export_siswa()
 	{
-		
+   		$this->load->library('excel');
+        $this->excel->setActiveSheetIndex(0);
+        //name the worksheet
+        $this->excel->getActiveSheet()->setTitle('siswa');
+        //set cell A1 content with some text
+        $this->excel->getActiveSheet()->setCellValue('A1', 'NIS');
+        $this->excel->getActiveSheet()->setCellValue('B1', 'Nama Siswa');
+        $this->excel->getActiveSheet()->setCellValue('C1', 'JK');
+        $this->excel->getActiveSheet()->setCellValue('D1', 'Alamat');
+        $this->excel->getActiveSheet()->setCellValue('E1', 'Kelas');
+        $this->excel->getActiveSheet()->setCellValue('F1', 'Nama Ayah');
+        $this->excel->getActiveSheet()->setCellValue('G1', 'Pekerjaan');
+        $this->excel->getActiveSheet()->setCellValue('H1', 'No. HP');
+        
+		for($col = ord('A'); $col <= ord('G'); $col++){
+        //set column dimension
+        $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+		//change the font size
+        $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+
+        $this->excel->getActiveSheet()->getStyle(chr($col))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+    	}
+
+        //retrive contries table data      
+        $rs = $this->db->get('siswa');
+
+        $exceldata=array();
+        foreach ($rs->result_array() as $row){
+                $exceldata[] = $row;
+        }
+                //Fill data 
+                $this->excel->getActiveSheet()->fromArray($exceldata, null, 'A2');
+                
+                $this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('F2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('G2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                $this->excel->getActiveSheet()->getStyle('I2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+               
+                
+                $filename='Student_List-'.date('d/m/y').'.xls'; //save our workbook as this file name
+                header('Content-Type: application/vnd.ms-excel'); //mime type
+                header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+                header('Cache-Control: max-age=0'); //no cache
+
+                //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+                //if you want to save it as .XLSX Excel 2007 format
+                $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
+                //force user to download the Excel file without writing it to server's HD
+                $objWriter->save('php://output');
 	}
 }
