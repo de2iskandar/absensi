@@ -15,9 +15,16 @@ class Operator extends CI_Controller {
 
 	public function index()
 	{
-		$this->view_siswa();
+		$this->view_dashboard();
 	}
 
+	// function dasboard laporan
+	public function view_dashboard()
+	{
+		$this->load->view('operator/dashboard');
+	}
+
+	// function siswa
 	public function view_siswa($offset=0)
 	{
 		$jml = $this->db->get('siswa');
@@ -154,48 +161,58 @@ class Operator extends CI_Controller {
 		}
 		else
 		{
-            $data = array('error' => false);
+			$data = array('error' => false);
 			$upload_data = $this->upload->data();
 
-            $this->load->library('excel_reader');
-			$this->excel_reader->setOutputEncoding('CP1251');
-
+			//load library phpExcel
+			$this->load->library("excel");
+			//here i used microsoft excel 2007
+			$objReader = PHPExcel_IOFactory::createReader('Excel5');
+			//set to read only
+			$objReader->setReadDataOnly(true);
+			//load excel file
 			$file =  $upload_data['full_path'];
-			$this->excel_reader->read($file);
-			error_reporting(E_ALL ^ E_NOTICE);
-
-			// Sheet 1
-			$data = $this->excel_reader->sheets[0] ;
-                        $dataexcel = Array();
-			for ($i = 1; $i <= $data['numRows']; $i++) {
-
-                            if($data['cells'][$i][1] == '') break;
-                            $dataexcel[$i-1]['nis'] = $data['cells'][$i][1];
-                            $dataexcel[$i-1]['nama_siswa'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['jk'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['alamat'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['kelas'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['nama_ayah'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['pekerjaan'] = $data['cells'][$i][2];
-                            $dataexcel[$i-1]['hp'] = $data['cells'][$i][2];
-
+			$objPHPExcel = $objReader->load($file);
+			$objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
+			//loop from first data until last data
+			$highestRow = $objWorksheet->getHighestRow();
+			for($i=2; $i<=$highestRow; $i++){
+				$nis = $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();
+				$nama_siswa = $objWorksheet->getCellByColumnAndRow(1,$i)->getValue();
+				$jk = $objWorksheet->getCellByColumnAndRow(2,$i)->getValue();
+				$alamat = $objWorksheet->getCellByColumnAndRow(3,$i)->getValue();
+				$kelas = $objWorksheet->getCellByColumnAndRow(4,$i)->getValue();
+				$nama_ayah = $objWorksheet->getCellByColumnAndRow(5,$i)->getValue();
+				$pekerjaan = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
+				$hp = $objWorksheet->getCellByColumnAndRow(7,$i)->getValue();
+				$data_siswa = array(
+					'nis' => $nis,
+		    		'nama_siswa' => $nama_siswa,
+					'jk' => $jk,
+					'alamat' => $alamat,
+					'kelas' => $kelas,
+			    	'nama_ayah' => $nama_ayah,
+			    	'pekerjaan' => $pekerjaan,
+			    	'hp' => $hp
+				);
+				$res = $this->M_siswa->insert_siswa($data_siswa);
+				delete_files($upload_data['file_path']);
 			}
-
-            delete_files($upload_data['file_path']);
-    		$this->M_siswa->import_siswa($dataexcel);
-			
-         
-    	}
-			$this->session->set_flashdata('import', '');
-			redirect('operator/view_siswa');   
+			if ($res>=1) {
+				$this->session->set_flashdata('import','');
+	    	 	redirect('operator/view_siswa');
+	    	} 
+		}
 	}
 
 	public function export_siswa()
 	{
    		$this->load->library('excel');
         $this->excel->setActiveSheetIndex(0);
+        
         //name the worksheet
         $this->excel->getActiveSheet()->setTitle('siswa');
+        
         //set cell A1 content with some text
         $this->excel->getActiveSheet()->setCellValue('A1', 'NIS');
         $this->excel->getActiveSheet()->setCellValue('B1', 'Nama Siswa');
@@ -206,13 +223,11 @@ class Operator extends CI_Controller {
         $this->excel->getActiveSheet()->setCellValue('G1', 'Pekerjaan');
         $this->excel->getActiveSheet()->setCellValue('H1', 'No. HP');
         
-		for($col = ord('A'); $col <= ord('G'); $col++){
-        //set column dimension
-        $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
-		//change the font size
-        $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
-
-        $this->excel->getActiveSheet()->getStyle(chr($col))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		for($col = ord('A'); $col <= ord('H'); $col++){
+	        //set column dimension
+	        $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+			//change the font size
+	        $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
     	}
 
         //retrive contries table data      
@@ -220,31 +235,34 @@ class Operator extends CI_Controller {
 
         $exceldata=array();
         foreach ($rs->result_array() as $row){
-                $exceldata[] = $row;
+            $exceldata[] = $row;
         }
-                //Fill data 
-                $this->excel->getActiveSheet()->fromArray($exceldata, null, 'A2');
-                
-                $this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('B2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('C2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('F2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('G2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $this->excel->getActiveSheet()->getStyle('I2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-               
-                
-                $filename='Student_List-'.date('d/m/y').'.xls'; //save our workbook as this file name
-                header('Content-Type: application/vnd.ms-excel'); //mime type
-                header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-                header('Cache-Control: max-age=0'); //no cache
+            //Fill data 
+            $this->excel->getActiveSheet()->fromArray($exceldata, null, 'A2');
 
-                //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
-                //if you want to save it as .XLSX Excel 2007 format
-                $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
-                //force user to download the Excel file without writing it to server's HD
-                $objWriter->save('php://output');
+            $this->excel->getActiveSheet()->getStyle('H')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+
+            $filename='Student_List-'.date('d/m/y').'.xls'; //save our workbook as this file name
+            header('Content-Type: application/vnd.ms-excel'); //mime type
+            header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+            header('Cache-Control: max-age=0'); //no cache
+
+            //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+            //if you want to save it as .XLSX Excel 2007 format
+            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
+            //force user to download the Excel file without writing it to server's HD
+            $objWriter->save('php://output');
+	}
+
+	// function guru
+	public function view_guru()
+	{
+		$this->load->view('operator/view_guru');
+	}
+
+	//function mapel
+	public function view_mapel()
+	{
+		$this->load->view('operator/view_mapel');
 	}
 }

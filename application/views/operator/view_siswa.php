@@ -29,11 +29,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<nav class="navbar navbar-default">
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
-        			<li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li class="active"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
-        			<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
-        			<li><a href="#"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
-        			<li><a href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>Laporan</a></li>
+        			<li><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
+        			<li class="active"><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
 
       			</ul>
       			<ul class="nav navbar-nav navbar-right">
