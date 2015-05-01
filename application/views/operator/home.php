@@ -29,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<nav class="navbar navbar-default">
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
-        			<li><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li class="active"><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
+        			<li class="active"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
         			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
         			<li><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
 
@@ -93,47 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 			</div>
 				<div class="panel-body">
-					<table class="table table-bordered table-hover">
-						<tr>
-		    				<th>NIS</th>
-		    				<th>Nama</th>
-		    				<th>JK</th>
-		    				<th>Alamat</th>
-		    				<th>Kelas</th>
-		    				<th>Nama Ayah</th>
-				            <th>Pekerjaan Ayah</th>
-				            <th>No. Hp</th>
-		    				<th>Pilihan</th>
-		  				</tr>
-		        	<?php
-		        		$no = $offset;
-		        		foreach ($data as $d) { ?>
-		  				<tr>
-		    				<td><?php echo $d['nis']; ?></td>
-				            <td><?php echo $d['nama_siswa']; ?></td>
-				            <td><?php echo $d['jk']; ?></td>
-				            <td><?php echo $d['alamat']; ?></td>
-				            <td><?php echo $d['kelas']; ?></td>
-				            <td><?php echo $d['nama_ayah']; ?></td>
-				            <td><?php echo $d['pekerjaan']; ?></td>
-				            <td><?php echo $d['hp']; ?></td>
-				            <td>
-				            	<a href="<?php echo base_url()."operator/edit_siswa/".$d['nis']; ?>">
-				            		<button type="button" class="btn btn-info btn-sm">Edit</button>
-				            	</a>
-				            	<a href="<?php echo base_url()."operator/delete_siswa/".$d['nis']; ?>">
-				            		<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-				            	</a>
-				            </td>
-		  				</tr>
-		  				<?php } ?>
-					</table>
-					<div class="row">
-						<div class="col-xs-12 col-md-8">&nbsp;</div>
-  						<div class="col-xs-6 col-md-4 text-right">
-  							<?php echo $halaman ?>
-  						</div>
-					</div>
+					
 				</div>
 			</div>
 			

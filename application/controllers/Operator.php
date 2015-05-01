@@ -15,13 +15,13 @@ class Operator extends CI_Controller {
 
 	public function index()
 	{
-		$this->view_dashboard();
+		$this->home();
 	}
 
 	// function dasboard laporan
-	public function view_dashboard()
+	public function home()
 	{
-		$this->load->view('operator/dashboard');
+		$this->load->view('operator/home');
 	}
 
 	// function siswa
