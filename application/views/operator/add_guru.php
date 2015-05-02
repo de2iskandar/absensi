@@ -30,8 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
         			<li><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li class="active"><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
+        			<li class="active"><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
         			<li><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
 
       			</ul>
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<section id="content">
 		<div class="container">
-			<form class="form-horizontal" method="POST" action="<?php echo base_url()."operator/insert_siswa";?>">
+			<form class="form-horizontal" method="POST" action="<?php echo base_url()."operator/insert_guru";?>">
 				<fieldset>
 
 					<!-- Form Name -->
@@ -51,18 +51,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nis">Nomor Induk</label>  
+					  <label class="col-md-4 control-label" for="nip">Nomor Induk Pegawai</label>  
 					  <div class="col-md-4">
-					  <input id="nis" name="nis" placeholder="" class="form-control input-md" required="" type="text">
+					  <input id="nip" name="nip" class="form-control input-md" type="text">
 					    
 					  </div>
 					</div>
 
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nama_siswa">Nama Lengkap</label>  
+					  <label class="col-md-4 control-label" for="nama_guru">Nama Lengkap</label>  
 					  <div class="col-md-4">
-					  <input id="nama_siswa" name="nama_siswa" placeholder="" class="form-control input-md" required="" type="text">
+					  <input id="nama_guru" name="nama_guru" class="form-control input-md" type="text">
 					    
 					  </div>
 					</div>
@@ -86,41 +86,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					  </div>
 					</div>
 
-					<!-- Select Basic -->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="kelas">Kelas</label>
-					  <div class="col-md-4">
-					    <select id="kelas" name="kelas" class="form-control">
-					      <option value="X">X</option>
-					      <option value="XI">XI</option>
-					      <option value="XII">XII</option>
-					    </select>
-					  </div>
-					</div>
-
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nama_ayah">Nama Ayah</label>  
+					  <label class="col-md-4 control-label" for="password">Password</label>  
 					  <div class="col-md-4">
-					  <input id="nama_ayah" name="nama_ayah" placeholder="" class="form-control input-md" required="" type="text">
-					    
-					  </div>
-					</div>
-
-					<!-- Text input-->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="pekerjaan">Pekerjaan</label>  
-					  <div class="col-md-4">
-					  <input id="pekerjaan" name="pekerjaan" placeholder="" class="form-control input-md" type="text">
-					    
-					  </div>
-					</div>
-
-					<!-- Text input-->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="hp">No. Handphone</label>  
-					  <div class="col-md-4">
-					  <input id="hp" name="hp" placeholder="" class="form-control input-md" required="" type="text">
+					  <input id="password" name="password" class="form-control input-md" type="text">
 					    
 					  </div>
 					</div>

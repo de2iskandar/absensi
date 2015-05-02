@@ -29,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<nav class="navbar navbar-default">
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
-        			<li><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li class="active"><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
+        			<li class="active"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
         			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
         			<li><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
 
@@ -43,26 +43,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<section id="content">
 		<div class="container">
-			<form class="form-horizontal" method="POST" action="<?php echo base_url()."operator/update_siswa";?>">
+			<form class="form-horizontal" method="POST" action="<?php echo base_url()."operator/update_guru";?>">
 				<fieldset>
 
 					<!-- Form Name -->
-					<legend>Edit Data Siswa</legend>
+					<legend>Edit Data Guru</legend>
 
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nis">Nomor Induk</label>  
+					  <label class="col-md-4 control-label" for="nip">Nomor Induk Pegawai</label>  
 					  <div class="col-md-4">
-					  <input name="nis" class="form-control input-md" value="<?php echo $nis; ?>" type="text" readonly>
+					  <input name="nip" class="form-control input-md" value="<?php echo $nip; ?>" type="text" readonly>
 					    
 					  </div>
 					</div>
 
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nama_siswa">Nama Lengkap</label>  
+					  <label class="col-md-4 control-label" for="nama_guru">Nama Lengkap</label>  
 					  <div class="col-md-4">
-					  <input name="nama_siswa" class="form-control input-md" value="<?php echo $nama_siswa; ?>"type="text">
+					  <input name="nama_guru" class="form-control input-md" value="<?php echo $nama_guru; ?>"type="text">
 					    
 					  </div>
 					</div>
@@ -86,41 +86,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					  </div>
 					</div>
 
-					<!-- Select Basic -->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="kelas">Kelas</label>
-					  <div class="col-md-4">
-					    <select name="kelas" class="form-control" value="<?php echo $kelas; ?>">
-					      <option value="X">X</option>
-					      <option value="XI">XI</option>
-					      <option value="XII">XII</option>
-					    </select>
-					  </div>
-					</div>
-
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="nama_ayah">Nama Ayah</label>  
+					  <label class="col-md-4 control-label" for="password">Password</label>  
 					  <div class="col-md-4">
-					  <input name="nama_ayah" class="form-control input-md" value="<?php echo $nama_ayah; ?>" type="text">
-					    
-					  </div>
-					</div>
-
-					<!-- Text input-->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="pekerjaan">Pekerjaan</label>  
-					  <div class="col-md-4">
-					  <input name="pekerjaan" class="form-control input-md" value="<?php echo $pekerjaan; ?>"type="text">
-					    
-					  </div>
-					</div>
-
-					<!-- Text input-->
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="hp">No. Handphone</label>  
-					  <div class="col-md-4">
-					  <input name="hp" class="form-control input-md" value="<?php echo $hp; ?>"type="text">
+					  <input name="password" class="form-control input-md" value="<?php echo $password; ?>"type="text">
 					    
 					  </div>
 					</div>

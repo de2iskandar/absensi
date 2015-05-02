@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<legend>Import Data Siswa</legend>
 			<div class="col-md-4">
-				<?php echo form_open_multipart('operator/do_import_siswa');?>
+				<?php echo form_open_multipart('operator/do_import_guru');?>
 				<input type="file" id="file_upload" name="userfile" size="20" />
 				<br/>
 				<input type="submit" value="Upload" />
