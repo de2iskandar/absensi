@@ -58,27 +58,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    				<th>Tanggal</th>
 		    				<th>NIS</th>
 		    				<th>Nama Siswa</th>
-		    				<th>Kelas</th>
+							<th>Kelas</th>
+							<th>Mata Pelajaran</th>
+							<th>Guru</th>
 		    				<th>Keterangan</th>
 		  				</tr>
 		        	<?php
-		        		$no = $offset;
 		        		foreach ($data as $d) { ?>
 		  				<tr>
 		    				<td><?php echo $d['tanggal']; ?></td>
 				            <td><?php echo $d['nis']; ?></td>
 				            <td><?php echo $d['nama_siswa']; ?></td>
-				            <td><?php echo $d['kelas']; ?></td>
+							<td><?php echo $d['kelas']; ?></td>
+							<td><?php echo $d['mata_pelajaran']; ?></td>
+							<td><?php echo $d['nama_guru']; ?></td>
 				            <td><?php echo $d['keterangan']; ?></td>
 		  				</tr>
 		  				<?php } ?>
 					</table>
-					<div class="row">
-						<div class="col-xs-12 col-md-8">&nbsp;</div>
-  						<div class="col-xs-6 col-md-4 text-right">
-  							<?php echo $halaman ?>
-  						</div>
-					</div>
 				</div>
 			</div>
 			

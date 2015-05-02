@@ -99,16 +99,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    				<th>Nama</th>
 		    				<th>JK</th>
 		    				<th>Alamat</th>
-		    				<th>Pilihan</th>
+		    				<th>Mata Pelajaran</th>
+							<th>Pilihan</th>
 		  				</tr>
 		        	<?php
-		        		$no = $offset;
 		        		foreach ($data as $d) { ?>
 		  				<tr>
 		    				<td><?php echo $d['nip']; ?></td>
 				            <td><?php echo $d['nama_guru']; ?></td>
 				            <td><?php echo $d['jk']; ?></td>
 				            <td><?php echo $d['alamat']; ?></td>
+							<td><?php echo $d['mata_pelajaran']; ?></td>
 				            <td>
 				            	<a href="<?php echo base_url()."operator/edit_guru/".$d['nip']; ?>">
 				            		<button type="button" class="btn btn-info btn-sm">Edit</button>
@@ -120,12 +121,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  				</tr>
 		  				<?php } ?>
 					</table>
-					<div class="row">
-						<div class="col-xs-12 col-md-8">&nbsp;</div>
-  						<div class="col-xs-6 col-md-4 text-right">
-  							<?php echo $halaman ?>
-  						</div>
-					</div>
 				</div>
 			</div>
 			

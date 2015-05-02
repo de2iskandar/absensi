@@ -6,3 +6,12 @@ h1{
 	margin: 5px;
 	font-size: 24px;
 }
+
+.btn-success, .btn-success:hover {
+	background-color: #27ae60; 
+}
+
+.panel-info > .panel-heading{
+	background-color: #ebebeb;
+	color : #27ae60;
+}

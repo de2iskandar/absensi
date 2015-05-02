@@ -8,9 +8,12 @@ class M_guru extends CI_Model {
 		// model guru
 	}
 
-	public function get_guru($num, $offset)
+	public function get_guru()
 	{
-		$query = $this->db->get('guru', $num, $offset);
+		$this->db->select('*');
+		$this->db->from('guru');
+		$this->db->join('mata_pelajaran', 'mata_pelajaran.id_mapel = guru.id_mapel');
+		$query = $this->db->get();
 		return $query->result_array();
 	}
 

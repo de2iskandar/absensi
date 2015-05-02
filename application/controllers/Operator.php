@@ -7,7 +7,6 @@ class Operator extends CI_Controller {
 		parent::__construct();
 
 		date_default_timezone_set('Asia/Jakarta');
-		$this->load->model('M_operator');
 		$this->load->model('M_siswa');
 		$this->load->model('M_guru');
 		$this->load->helper('url');
@@ -23,31 +22,9 @@ class Operator extends CI_Controller {
 	// function dasboard laporan
 	public function home()
 	{
-		$jml = $this->db->get('absen');
-		$config['base_url'] = base_url().'/operator/home';
-		$config['total_rows'] = $jml->num_rows();
-		$config['per_page'] = 10;
-		$config['uri_segment'] = 3;
-		$config['full_tag_open'] = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
-		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-		$config['next_tag_open'] = "<li>";
-		$config['next_tagl_close'] = "</li>";
-		$config['prev_tag_open'] = "<li>";
-		$config['prev_tagl_close'] = "</li>";
-		$config['first_tag_open'] = "<li>";
-		$config['first_tagl_close'] = "</li>";
-		$config['last_tag_open'] = "<li>";
-		$config['last_tagl_close'] = "</li>";
-
-		$this->pagination->initialize($config);
-		$data['halaman'] = $this->pagination->create_links();
-		$data['offset'] = $offset;
-		$data['data'] = $this->M_operator->get_absen($config['per_page'], $offset);
-		$this->load->view('operator/home',$data);
+		$this->load->model('M_operator');
+		$data['data'] = $this->M_operator->get_absen();
+		$this->load->view('operator/home', $data);
 	}
 
 	// function siswa
@@ -281,32 +258,9 @@ class Operator extends CI_Controller {
 	}
 
 	// function guru
-	public function view_guru($offset=0)
+	public function view_guru()
 	{
-		$jml = $this->db->get('guru');
-		$config['base_url'] = base_url().'/operator/view_guru';
-		$config['total_rows'] = $jml->num_rows();
-		$config['per_page'] = 10;
-		$config['uri_segment'] = 3;
-		$config['full_tag_open'] = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
-		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-		$config['next_tag_open'] = "<li>";
-		$config['next_tagl_close'] = "</li>";
-		$config['prev_tag_open'] = "<li>";
-		$config['prev_tagl_close'] = "</li>";
-		$config['first_tag_open'] = "<li>";
-		$config['first_tagl_close'] = "</li>";
-		$config['last_tag_open'] = "<li>";
-		$config['last_tagl_close'] = "</li>";
-
-		$this->pagination->initialize($config);
-		$data['halaman'] = $this->pagination->create_links();
-		$data['offset'] = $offset;
-		$data['data'] = $this->M_guru->get_guru($config['per_page'], $offset);
+		$data['data'] = $this->M_guru->get_guru();
 		$this->load->view('operator/view_guru',$data);
 	}
 
