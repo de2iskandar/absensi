@@ -24,4 +24,13 @@ class M_operator extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+	
+	public function get_mapel()
+	{
+		$this->db->select('*');
+		$this->db->from('mata_pelajaran');
+		$this->db->join('guru', 'mata_pelajaran.nip = guru.nip');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }

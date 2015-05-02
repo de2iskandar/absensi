@@ -7,6 +7,7 @@ class Operator extends CI_Controller {
 		parent::__construct();
 
 		date_default_timezone_set('Asia/Jakarta');
+		$this->load->model('M_operator');
 		$this->load->model('M_siswa');
 		$this->load->model('M_guru');
 		$this->load->helper('url');
@@ -22,7 +23,6 @@ class Operator extends CI_Controller {
 	// function dasboard laporan
 	public function home()
 	{
-		$this->load->model('M_operator');
 		$data['data'] = $this->M_operator->get_absen();
 		$this->load->view('operator/home', $data);
 	}
@@ -440,6 +440,7 @@ class Operator extends CI_Controller {
 	//function mapel
 	public function view_mapel()
 	{
-		$this->load->view('operator/view_mapel');
+		$data['data'] = $this->M_operator->get_mapel();
+		$this->load->view('operator/view_mapel', $data);
 	}
 }

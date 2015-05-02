@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 	<section id="header">
 		<div class="container">
-			<h1 class="navbar-brand">Absensi Siswa Realtime</h1>
+			<h1 class="navbar-brand">Daftar Siswa Tidak Hadir</h1>
 			<ul class="nav navbar-nav navbar-right">
         		<li role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Username</a></li>
         		<li role="presentation"><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>Log out</a></li>
@@ -29,10 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<nav class="navbar navbar-default">
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
-        			<li><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
-        			<li class="active"><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
+        			<li class="active"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>Absensi</a></li>
 
       			</ul>
       			<ul class="nav navbar-nav navbar-right">
@@ -43,36 +41,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<section id="content">
 		<div class="container">
-
-    		<?php if ($this->session->flashdata('delete')) : ?>
-    		<div class="alert alert-danger alert-dismissible" role="alert">
-  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  				<strong>Warning!</strong> data telah dihapus.
-			</div>
-    		<?php endif ?>
-    		
+			    		
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-12 col-md-8">
-							<h4>Daftar Mata Pelajaran</h4>
+							<h4>Daftar Siswa Tidak Hadir</h4>
 						</div>
 					</div>
 			</div>
 				<div class="panel-body">
-					<table class="table table-bordered table-hover">
-						<tr>
-		    				<th>Mata Pelajaran</th>
-		    				<th>Nama Guru</th>
-		  				</tr>
-		        	<?php
-		        		foreach ($data as $d) { ?>
-		  				<tr>
-		    				<td><?php echo $d['mata_pelajaran']; ?></td>
-				            <td><?php echo $d['nama_guru']; ?></td>
-		  				</tr>
-		  				<?php } ?>
-					</table>
+					
 				</div>
 			</div>
 			
