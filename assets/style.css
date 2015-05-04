@@ -18,9 +18,15 @@ body{
 	margin-bottom: 8px;
 }
 
-#header .nav >li, #header .nav > li > a {
+#header .nav >li, #header .nav > li > a, #header .nav > li > a, #header .nav > li > a:visited, #header .nav > li > a:active {
 	color: #ebebeb;
+	background: transparent;
 }
+
+#header .nav >li >a:hover{
+	color: #fff;
+}
+
 #menubar{
 	background: #ebebeb;
 }
