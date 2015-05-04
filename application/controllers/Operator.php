@@ -5,6 +5,7 @@ class Operator extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->is_logged_in();
 
 		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('M_operator');
@@ -20,11 +21,22 @@ class Operator extends CI_Controller {
 		$this->home();
 	}
 
+	public function is_logged_in()
+	{
+		$is_logged_in = $this->session->userdata('is_logged_in');
+		$level = $this->session->userdata('level');
+		if (!isset($is_logged_in) || $is_logged_in != TRUE || $level != 'admin') {
+			redirect ('login');
+		}
+	}
+
 	// function dasboard laporan
 	public function home()
 	{
 		$data['data'] = $this->M_operator->get_absen();
-		$this->load->view('operator/home', $data);
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/home';
+		$this->load->view('includes/template', $data);
 	}
 
 	// function siswa
@@ -54,12 +66,16 @@ class Operator extends CI_Controller {
 		$data['halaman'] = $this->pagination->create_links();
 		$data['offset'] = $offset;
 		$data['data'] = $this->M_siswa->get_siswa($config['per_page'], $offset);
-		$this->load->view('operator/view_siswa',$data);
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/view_siswa';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function add_siswa()
 	{
-		$this->load->view('operator/add_siswa');
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/add_siswa';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function insert_siswa()
@@ -72,7 +88,7 @@ class Operator extends CI_Controller {
     	$nama_ayah = $_POST['nama_ayah'];
     	$pekerjaan = $_POST['pekerjaan'];
     	$hp = $_POST['hp'];
-    	$data = array(
+    	$data_siswa = array(
     		'nis' => $nis,
     		'nama_siswa' => $nama_siswa,
 			'jk' => $jk,
@@ -83,10 +99,12 @@ class Operator extends CI_Controller {
 	    	'hp' => $hp
     	);
 
-    	$res = $this->M_siswa->insert_siswa($data);
+    	$res = $this->M_siswa->insert_siswa($data_siswa);
     	if ($res>=1) {
     	 	$this->session->set_flashdata('tambah', 'Sukses! data berhasil ditambah');
-    	 	redirect('operator/view_siswa');
+    	 	$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_siswa';
+			$this->load->view('includes/template',$data);
     	} 
 	}
 
@@ -103,8 +121,9 @@ class Operator extends CI_Controller {
 	    	'pekerjaan' => $siswa[0]['pekerjaan'],
 	    	'hp' => $siswa[0]['hp']
     	);
-
-		$this->load->view('operator/edit_siswa', $data);
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/edit_siswa';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function update_siswa()
@@ -117,7 +136,7 @@ class Operator extends CI_Controller {
     	$nama_ayah = $_POST['nama_ayah'];
     	$pekerjaan = $_POST['pekerjaan'];
     	$hp = $_POST['hp'];
-    	$data = array(
+    	$data_siswa = array(
     		'nis' => $nis,
     		'nama_siswa' => $nama_siswa,
 			'jk' => $jk,
@@ -128,10 +147,12 @@ class Operator extends CI_Controller {
 	    	'hp' => $hp
     	);
 
-    	$res = $this->M_siswa->replace_siswa($data);
+    	$res = $this->M_siswa->replace_siswa($data_siswa);
     	if ($res>=1) {
     		$this->session->set_flashdata('update', 'Sukses! data berhasil diperbarui');
-    	 	redirect('operator/view_siswa');
+    		$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_siswa';
+			$this->load->view('includes/template',$data);
     	}
 	}
 
@@ -140,13 +161,17 @@ class Operator extends CI_Controller {
 		$res = $this->M_siswa->delete_siswa($nis);
 		if ($res>=1) {
 			$this->session->set_flashdata('delete', 'Sukses! data berhasil dihapus');
-    	 	redirect('operator/view_siswa');
+			$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_siswa';
+			$this->load->view('includes/template',$data);
     	} 
 	}
 
 	public function import_siswa()
 	{
-		$this->load->view('operator/import_siswa');
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/import_siswa';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function do_import_siswa()
@@ -203,7 +228,9 @@ class Operator extends CI_Controller {
 			}
 			if ($res>=1) {
 				$this->session->set_flashdata('import','');
-	    	 	redirect('operator/view_siswa');
+				$data['nama'] = $this->session->userdata('nama');
+	    	 	$data['main_content'] = 'operator/view_siswa';
+				$this->load->view('includes/template',$data);
 	    	} 
 		}
 	}
@@ -261,12 +288,16 @@ class Operator extends CI_Controller {
 	public function view_guru()
 	{
 		$data['data'] = $this->M_guru->get_guru();
-		$this->load->view('operator/view_guru',$data);
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/view_guru';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function add_guru()
 	{
-		$this->load->view('operator/add_guru');
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/add_guru';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function insert_guru()
@@ -287,7 +318,9 @@ class Operator extends CI_Controller {
     	$res = $this->M_guru->insert_guru($data);
     	if ($res>=1) {
     	 	$this->session->set_flashdata('tambah', 'Sukses! data berhasil ditambah');
-    	 	redirect('operator/view_guru');
+    	 	$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_guru';
+			$this->load->view('includes/template',$data);
     	} 
 	}
 
@@ -301,8 +334,9 @@ class Operator extends CI_Controller {
 			'alamat' => $guru[0]['alamat'],
 			'password' => $guru[0]['password']
     	);
-
-		$this->load->view('operator/edit_guru', $data);
+    	$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/edit_guru';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function update_guru()
@@ -323,7 +357,9 @@ class Operator extends CI_Controller {
     	$res = $this->M_guru->replace_guru($data);
     	if ($res>=1) {
     		$this->session->set_flashdata('update', 'Sukses! data berhasil diperbarui');
-    	 	redirect('operator/view_guru');
+    		$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_guru';
+			$this->load->view('includes/template',$data);
     	}
 	}
 
@@ -332,13 +368,17 @@ class Operator extends CI_Controller {
 		$res = $this->M_guru->delete_guru($nip);
 		if ($res>=1) {
 			$this->session->set_flashdata('delete', 'Sukses! data berhasil dihapus');
-    	 	redirect('operator/view_guru');
+			$data['nama'] = $this->session->userdata('nama');
+    	 	$data['main_content'] = 'operator/view_guru';
+			$this->load->view('includes/template',$data);
     	} 
 	}
 
 	public function import_guru()
 	{
-		$this->load->view('operator/import_guru');
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'operator/import_guru';
+		$this->load->view('includes/template',$data);
 	}
 
 	public function do_import_guru()
@@ -389,7 +429,9 @@ class Operator extends CI_Controller {
 			}
 			if ($res>=1) {
 				$this->session->set_flashdata('import','');
-	    	 	redirect('operator/view_guru');
+				$data['nama'] = $this->session->userdata('nama');
+	    	 	$data['main_content'] = 'operator/view_guru';
+				$this->load->view('includes/template',$data);
 	    	} 
 		}
 	}
@@ -440,7 +482,9 @@ class Operator extends CI_Controller {
 	//function mapel
 	public function view_mapel()
 	{
+		$data['nama'] = $this->session->userdata('nama');
 		$data['data'] = $this->M_operator->get_mapel();
-		$this->load->view('operator/view_mapel', $data);
+		$data['main_content'] = 'operator/view_mapel';
+		$this->load->view('includes/template',$data);
 	}
 }
