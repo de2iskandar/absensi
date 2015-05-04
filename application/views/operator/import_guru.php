@@ -1,4 +1,3 @@
-
 <legend>Import Data Siswa</legend>
 <div class="col-md-4">
 	<?php echo form_open_multipart('operator/do_import_guru');?>

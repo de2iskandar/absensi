@@ -32,6 +32,7 @@ class M_login extends CI_Model {
             foreach ($qg->result() as $sess) {
                 $sess_data['is_logged_in'] = TRUE;
                 $sess_data['nama'] = $sess->nama_guru;
+                $sess_data['id_user'] = $sess->id_user;
                 $sess_data['level'] = 'guru';
                 $this->session->set_userdata($sess_data);
             }

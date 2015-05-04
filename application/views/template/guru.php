@@ -27,9 +27,9 @@
 			<nav class="navbar navbar-default">
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
-        			<li class="active"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Absensi</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Laporan</a></li>
+        			<li class="<?php if($menu=='home') echo 'active'; ?>"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
+        			<li class="<?php if($menu=='profil') echo 'active'; ?>"><a href="<?php echo base_url()."operator/edit_profil"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Profil</a></li>
+        			<li class="<?php if($menu=='absensi') echo 'active'; ?>"><a href="<?php echo base_url()."operator/absensi"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Absensi</a></li>
 
       			</ul>
       			<ul class="nav navbar-nav navbar-right">

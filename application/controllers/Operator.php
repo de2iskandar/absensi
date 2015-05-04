@@ -9,8 +9,8 @@ class Operator extends CI_Controller {
 
 		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('M_operator','operator', TRUE);
-		$this->load->model('M_siswa','siswa', TRUE);
 		$this->load->model('M_guru','guru', TRUE);
+		$this->load->model('M_siswa','siswa', TRUE);
 	}
 
 	public function index()
@@ -32,6 +32,7 @@ class Operator extends CI_Controller {
 	{
 		$data['data'] = $this->operator->get_absen();
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'home';
 		$data['main_content'] = 'operator/home';
 		$this->load->view('template/operator', $data);
 	}
@@ -64,6 +65,7 @@ class Operator extends CI_Controller {
 		$data['offset'] = $offset;
 		$data['data'] = $this->siswa->get_siswa($config['per_page'], $offset);
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'siswa';
 		$data['main_content'] = 'operator/view_siswa';
 		$this->load->view('template/operator',$data);
 	}
@@ -71,6 +73,7 @@ class Operator extends CI_Controller {
 	public function add_siswa()
 	{
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'siswa';
 		$data['main_content'] = 'operator/add_siswa';
 		$this->load->view('template/operator',$data);
 	}
@@ -99,9 +102,7 @@ class Operator extends CI_Controller {
     	$res = $this->siswa->insert_siswa($data_siswa);
     	if ($res>=1) {
     	 	$this->session->set_flashdata('tambah', 'Sukses! data berhasil ditambah');
-    	 	$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_siswa';
-			$this->load->view('template/operator',$data);
+    	 	redirect ('operator/view_siswa');
     	} 
 	}
 
@@ -119,6 +120,7 @@ class Operator extends CI_Controller {
 	    	'hp' => $siswa[0]['hp']
     	);
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'siswa';
 		$data['main_content'] = 'operator/edit_siswa';
 		$this->load->view('template/operator',$data);
 	}
@@ -147,9 +149,7 @@ class Operator extends CI_Controller {
     	$res = $this->siswa->replace_siswa($data_siswa);
     	if ($res>=1) {
     		$this->session->set_flashdata('update', 'Sukses! data berhasil diperbarui');
-    		$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_siswa';
-			$this->load->view('template/operator',$data);
+    		redirect ('operator/view_siswa');
     	}
 	}
 
@@ -158,15 +158,14 @@ class Operator extends CI_Controller {
 		$res = $this->siswa->delete_siswa($nis);
 		if ($res>=1) {
 			$this->session->set_flashdata('delete', 'Sukses! data berhasil dihapus');
-			$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_siswa';
-			$this->load->view('template/operator',$data);
+			redirect ('operator/view_siswa');
     	} 
 	}
 
 	public function import_siswa()
 	{
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'siswa';
 		$data['main_content'] = 'operator/import_siswa';
 		$this->load->view('template/operator',$data);
 	}
@@ -225,9 +224,7 @@ class Operator extends CI_Controller {
 			}
 			if ($res>=1) {
 				$this->session->set_flashdata('import','');
-				$data['nama'] = $this->session->userdata('nama');
-	    	 	$data['main_content'] = 'operator/view_siswa';
-				$this->load->view('template/operator',$data);
+				redirect ('operator/view_siswa');
 	    	} 
 		}
 	}
@@ -284,8 +281,10 @@ class Operator extends CI_Controller {
 	// function guru
 	public function view_guru()
 	{
+		
 		$data['data'] = $this->guru->get_guru();
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'guru';
 		$data['main_content'] = 'operator/view_guru';
 		$this->load->view('template/operator',$data);
 	}
@@ -293,6 +292,7 @@ class Operator extends CI_Controller {
 	public function add_guru()
 	{
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'guru';
 		$data['main_content'] = 'operator/add_guru';
 		$this->load->view('template/operator',$data);
 	}
@@ -303,21 +303,23 @@ class Operator extends CI_Controller {
 		$nama_guru = $_POST['nama_guru'];
 		$jk = $_POST['jk'];
 		$alamat = $_POST['alamat'];
-		$password = $_POST['password'];
-    	$data = array(
+		$id_mapel = $_POST['id_mapel'];
+    	$id_user = $_POST['id_user'];
+    	$password = $_POST['password'];
+    	$data_guru = array(
     		'nip' => $nip,
     		'nama_guru' => $nama_guru,
 			'jk' => $jk,
 			'alamat' => $alamat,
-			'password' => $password,
+			'id_mapel' => $id_mapel,
+	    	'id_user' => $id_user,
+	    	'password' => md5($password)
     	);
 
-    	$res = $this->guru->insert_guru($data);
+    	$res = $this->guru->insert_guru($data_guru);
     	if ($res>=1) {
     	 	$this->session->set_flashdata('tambah', 'Sukses! data berhasil ditambah');
-    	 	$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_guru';
-			$this->load->view('template/operator',$data);
+    	 	redirect ('operator/view_guru');
     	} 
 	}
 
@@ -329,9 +331,11 @@ class Operator extends CI_Controller {
     		'nama_guru' => $guru[0]['nama_guru'],
 			'jk' => $guru[0]['jk'],
 			'alamat' => $guru[0]['alamat'],
-			'password' => $guru[0]['password']
+			'id_mapel' => $guru[0]['id_mapel'],
+	    	'id_user' => $guru[0]['id_user']
     	);
-    	$data['nama'] = $this->session->userdata('nama');
+		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'guru';
 		$data['main_content'] = 'operator/edit_guru';
 		$this->load->view('template/operator',$data);
 	}
@@ -342,21 +346,23 @@ class Operator extends CI_Controller {
 		$nama_guru = $_POST['nama_guru'];
 		$jk = $_POST['jk'];
 		$alamat = $_POST['alamat'];
-		$password = $_POST['password'];
-    	$data = array(
+		$id_mapel = $_POST['id_mapel'];
+    	$id_user = $_POST['id_user'];
+    	$password = $_POST['password'];
+    	$data_guru = array(
     		'nip' => $nip,
     		'nama_guru' => $nama_guru,
 			'jk' => $jk,
 			'alamat' => $alamat,
-			'password' => $password
+			'id_mapel' => $id_mapel,
+	    	'id_user' => $id_user,
+	    	'password' => md5($password)
     	);
 
-    	$res = $this->guru->replace_guru($data);
+    	$res = $this->guru->replace_guru($data_guru);
     	if ($res>=1) {
     		$this->session->set_flashdata('update', 'Sukses! data berhasil diperbarui');
-    		$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_guru';
-			$this->load->view('template/operator',$data);
+    		redirect ('operator/view_guru');
     	}
 	}
 
@@ -365,15 +371,14 @@ class Operator extends CI_Controller {
 		$res = $this->guru->delete_guru($nip);
 		if ($res>=1) {
 			$this->session->set_flashdata('delete', 'Sukses! data berhasil dihapus');
-			$data['nama'] = $this->session->userdata('nama');
-    	 	$data['main_content'] = 'operator/view_guru';
-			$this->load->view('template/operator',$data);
+			redirect ('operator/view_guru');
     	} 
 	}
 
 	public function import_guru()
 	{
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'guru';
 		$data['main_content'] = 'operator/import_guru';
 		$this->load->view('template/operator',$data);
 	}
@@ -413,22 +418,18 @@ class Operator extends CI_Controller {
 				$nama_guru = $objWorksheet->getCellByColumnAndRow(1,$i)->getValue();
 				$jk = $objWorksheet->getCellByColumnAndRow(2,$i)->getValue();
 				$alamat = $objWorksheet->getCellByColumnAndRow(3,$i)->getValue();
-				$password = $objWorksheet->getCellByColumnAndRow(4,$i)->getValue();
 				$data_guru = array(
 					'nip' => $nip,
 		    		'nama_guru' => $nama_guru,
 					'jk' => $jk,
-					'alamat' => $alamat,
-					'password' => $password
+					'alamat' => $alamat
 				);
 				$res = $this->guru->insert_guru($data_guru);
 				delete_files($upload_data['file_path']);
 			}
 			if ($res>=1) {
 				$this->session->set_flashdata('import','');
-				$data['nama'] = $this->session->userdata('nama');
-	    	 	$data['main_content'] = 'operator/view_guru';
-				$this->load->view('template/operator',$data);
+				redirect ('operator/view_guru');
 	    	} 
 		}
 	}
@@ -442,12 +443,16 @@ class Operator extends CI_Controller {
         $this->excel->getActiveSheet()->setTitle('guru');
         
         //set cell A1 content with some text
-        $this->excel->getActiveSheet()->setCellValue('A1', 'NIP');
-        $this->excel->getActiveSheet()->setCellValue('B1', 'Nama Guru');
+        $this->excel->getActiveSheet()->setCellValue('A1', 'NIS');
+        $this->excel->getActiveSheet()->setCellValue('B1', 'Nama guru');
         $this->excel->getActiveSheet()->setCellValue('C1', 'JK');
         $this->excel->getActiveSheet()->setCellValue('D1', 'Alamat');
+        $this->excel->getActiveSheet()->setCellValue('E1', 'Kelas');
+        $this->excel->getActiveSheet()->setCellValue('F1', 'Nama Ayah');
+        $this->excel->getActiveSheet()->setCellValue('G1', 'Pekerjaan');
+        $this->excel->getActiveSheet()->setCellValue('H1', 'No. HP');
         
-		for($col = ord('A'); $col <= ord('D'); $col++){
+		for($col = ord('A'); $col <= ord('H'); $col++){
 	        //set column dimension
 	        $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
 			//change the font size
@@ -464,7 +469,9 @@ class Operator extends CI_Controller {
             //Fill data 
             $this->excel->getActiveSheet()->fromArray($exceldata, null, 'A2');
 
-            $filename='Teacher_List-'.date('d/m/y').'.xls'; //save our workbook as this file name
+            $this->excel->getActiveSheet()->getStyle('H')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+
+            $filename='Student_List-'.date('d/m/y').'.xls'; //save our workbook as this file name
             header('Content-Type: application/vnd.ms-excel'); //mime type
             header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
             header('Cache-Control: max-age=0'); //no cache
@@ -481,6 +488,7 @@ class Operator extends CI_Controller {
 	{
 		$data['nama'] = $this->session->userdata('nama');
 		$data['data'] = $this->operator->get_mapel();
+		$data['menu'] = 'mapel';
 		$data['main_content'] = 'operator/view_mapel';
 		$this->load->view('template/operator',$data);
 	}

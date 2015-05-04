@@ -31,6 +31,7 @@ class Guru extends CI_Controller {
 	{
 		$data['data'] = $this->operator->get_absen();
 		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'home';
 		$data['main_content'] = 'guru/home';
 		$this->load->view('template/guru', $data);
 	}

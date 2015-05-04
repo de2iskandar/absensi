@@ -1,4 +1,3 @@
-
 <?php if ($this->session->flashdata('tambah')) : ?>
 <div class="alert alert-success alert-dismissible" role="alert">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -31,17 +30,9 @@
 	<div class="panel-heading">
 		<div class="row">
 			<div class="col-xs-12 col-md-8">
-				<h4>Daftar Guru</h4>
+				<h4>Daftar guru</h4>
 			</div>
 				<div class="col-xs-6 col-md-4 text-right">
-					<a href="<?php echo base_url()."operator/import_guru"; ?>">
-					<button type="button" class="btn btn-success btn-sm">Import</button>
-				</a>
-
-				<a href="<?php echo base_url()."operator/export_guru"; ?>">
-					<button type="button" class="btn btn-success btn-sm">Export</button>
-				</a>
-
 					<a href="<?php echo base_url()."operator/add_guru"; ?>">
 					<button type="button" class="btn btn-success btn-sm">Tambah</button>
 				</a>
@@ -56,7 +47,6 @@
 				<th>JK</th>
 				<th>Alamat</th>
 				<th>Mata Pelajaran</th>
-				<th>Pilihan</th>
 				</tr>
     	<?php
     		foreach ($data as $d) { ?>
@@ -65,15 +55,7 @@
 	            <td><?php echo $d['nama_guru']; ?></td>
 	            <td><?php echo $d['jk']; ?></td>
 	            <td><?php echo $d['alamat']; ?></td>
-				<td><?php echo $d['mata_pelajaran']; ?></td>
-	            <td>
-	            	<a href="<?php echo base_url()."operator/edit_guru/".$d['nip']; ?>">
-	            		<button type="button" class="btn btn-info btn-sm">Edit</button>
-	            	</a>
-	            	<a href="<?php echo base_url()."operator/delete_guru/".$d['nip']; ?>">
-	            		<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-	            	</a>
-	            </td>
+	            <td><?php echo $d['mata_pelajaran']; ?></td>
 				</tr>
 				<?php } ?>
 		</table>
