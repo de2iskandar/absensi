@@ -17,6 +17,10 @@ body{
 	margin-top: 8px;
 	margin-bottom: 8px;
 }
+
+#header .nav >li, #header .nav > li > a {
+	color: #ebebeb;
+}
 #menubar{
 	background: #ebebeb;
 }
@@ -44,9 +48,6 @@ body{
 .nav >li {
 	color: #4f5965;
 	margin-top: 14px;
-}
-.nav > li > a{
-	color: #ebebeb;
 }
 
 .nav > li > a:hover{

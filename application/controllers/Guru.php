@@ -29,6 +29,9 @@ class Guru extends CI_Controller {
 
 	public function home()
 	{
-		$this->load->view('guru/home');
+		$data['data'] = $this->operator->get_absen();
+		$data['nama'] = $this->session->userdata('nama');
+		$data['main_content'] = 'guru/home';
+		$this->load->view('template/guru', $data);
 	}
 }

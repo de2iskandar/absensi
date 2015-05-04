@@ -16,7 +16,7 @@
 		<div class="container">
 			<h1 class="navbar-brand">Absensi Siswa Realtime</h1>
 			<ul class="nav navbar-nav navbar-right">
-        		<li role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><?php echo $nama ?></a></li>
+        		<li role="presentation"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><?php echo $nama ?></li>
         		<li role="presentation"><a href="<?php echo base_url().'login/logout';?>"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>Log out</a></li>
       		</ul>
 		</div>
@@ -28,9 +28,8 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
     			<ul class="nav navbar-nav">
         			<li class="active"><a href="<?php echo base_url()."operator/home"; ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Dashboard</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Siswa</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Guru</a></li>
-        			<li><a href="<?php echo base_url()."operator/view_mapel"; ?>"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Mata Pelajaran</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_siswa"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Absensi</a></li>
+        			<li><a href="<?php echo base_url()."operator/view_guru"; ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Laporan</a></li>
 
       			</ul>
       			<ul class="nav navbar-nav navbar-right">
