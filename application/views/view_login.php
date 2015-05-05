@@ -29,12 +29,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="username" type="text" class="form-control" name="username" value="" placeholder="Masukan ID">                                        
+                            <input id="username" type="text" class="form-control" name="username" value="" placeholder="Masukan ID" required="">                                        
                         </div>
                                 
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="password" type="password" class="form-control" name="password" placeholder="Masukan Kata Sandi">
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Masukan Kata Sandi" required="">
                         </div>
                                     
                        	<div style="margin-top:10px" class="form-group">

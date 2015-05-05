@@ -55,5 +55,20 @@ class M_guru extends CI_Model {
 		return $query;
 
 	}
+
+	public function get_absen()
+	{
+		$data = 'SELECT absen.keterangan,
+								siswa.nama_siswa,
+								siswa.nis,
+								absen.nis
+								FROM
+								absen
+								INNER JOIN siswa ON absen.nis = siswa.nis
+								INNER JOIN guru ON absen.id_user = guru.id_user ;';
+
+
+		return $this->db->query($data)->result_array();
+	}
 	
 }

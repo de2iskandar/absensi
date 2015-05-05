@@ -11,6 +11,7 @@ class Guru extends CI_Controller {
 		$this->load->model('M_operator','operator',TRUE);
 		$this->load->model('M_siswa','siswa',TRUE);
 		$this->load->model('M_guru','guru',TRUE);
+		$this->load->model('M_absen','absen',TRUE);
 	}
 	
 	public function index()
@@ -29,10 +30,37 @@ class Guru extends CI_Controller {
 
 	public function home()
 	{
-		$data['data'] = $this->operator->get_absen();
+		$data['data'] = $this->guru->get_absen();
 		$data['nama'] = $this->session->userdata('nama');
 		$data['menu'] = 'home';
 		$data['main_content'] = 'guru/home';
 		$this->load->view('template/guru', $data);
+	}
+
+	public function absensi()
+	{
+		$data['nama'] = $this->session->userdata('nama');
+		$data['menu'] = 'absensi';
+		$data['main_content'] = 'guru/absensi';
+		$this->load->view('template/guru', $data);
+	}
+
+	public function insert_absen()
+	{
+		$id_user = $this->session->userdata('id_user');
+		$nis = $_POST['nis'];
+		$tanggal = date('Y-m-d');
+		$keterangan = $_POST['keterangan'];
+    	$data_absen = array(
+    		'tanggal' => $tanggal,
+    		'nis' => $nis,
+			'id_user' => $id_user,
+			'keterangan' => $keterangan
+    	);
+
+    	$res = $this->absen->insert_absen($data_absen);
+    	if ($res>=1) {
+    	 	redirect ('guru/home');
+    	} 
 	}
 }

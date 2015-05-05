@@ -13,7 +13,6 @@
 				<th>NIS</th>
 				<th>Nama Siswa</th>
 				<th>Kelas</th>
-				<th>Mata Pelajaran</th>
 				<th>Guru</th>
 				<th>Keterangan</th>
 				</tr>
@@ -24,7 +23,6 @@
 	            <td><?php echo $d['nis']; ?></td>
 	            <td><?php echo $d['nama_siswa']; ?></td>
 				<td><?php echo $d['kelas']; ?></td>
-				<td><?php echo $d['mata_pelajaran']; ?></td>
 				<td><?php echo $d['nama_guru']; ?></td>
 	            <td><?php echo $d['keterangan']; ?></td>
 				</tr>
