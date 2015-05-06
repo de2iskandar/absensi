@@ -29,17 +29,17 @@ class Guru extends CI_Controller {
 	{
 		$data = $this->absen->get_absen();
 		foreach ($data as $d) {
-		$tanggal=>$d['tanggal'];
-		$nama_siswa=>$d['nama_siswa'];
-		$keterangan=>$d['keterangan'];
-		$no_tujuan=>$d['hp'];
+		$tanggal=$d['tanggal'];
+		$nama_siswa=$d['nama_siswa'];
+		$keterangan=$d['keterangan'];
+		$no_tujuan=$d['hp'];
 		$message = 'Kami Memberitahukan bahwa pada tanggal '.$tanggal.', '.$nama_siswa.'tidak masuk sekolah dengan alasan '.$keterangan;
 		}
 
 		for($i=0; $i<=$numb_rows(); $i++){
 
  
-		exec('c:\xampp\htdocs\smsku\bin\gammu-smsd-inject.exe -c c:\xampp\htdocs\smsku\bin\smsdrc EMS '.$no_tujuan.' -text "'.$message.'"');
+		exec('\bin\gammu-smsd-inject.exe -c \bin\smsdrc EMS '.$no_tujuan.' -text "'.$message.'"');
 		}
 
 		redirect ('guru');
