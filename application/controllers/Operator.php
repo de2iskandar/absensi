@@ -21,7 +21,7 @@ class Operator extends CI_Controller {
 	public function is_logged_in()
 	{
 		$is_logged_in = $this->session->userdata('is_logged_in');
-		$level = $this->session->userdata('level');
+		$level        = $this->session->userdata('level');
 		if (!isset($is_logged_in) || $is_logged_in != TRUE || $level != 'admin') {
 			redirect ('login');
 		}
@@ -30,9 +30,9 @@ class Operator extends CI_Controller {
 	// function dasboard laporan
 	public function home()
 	{
-		$data['data'] = $this->operator->get_absen();
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'home';
+		$data['data']         = $this->operator->get_absen();
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'home';
 		$data['main_content'] = 'operator/home';
 		$this->load->view('template/operator', $data);
 	}
@@ -40,63 +40,63 @@ class Operator extends CI_Controller {
 	// function siswa
 	public function view_siswa($offset=0)
 	{
-		$jml = $this->db->get('siswa');
-		$config['base_url'] = base_url().'/operator/view_siswa';
-		$config['total_rows'] = $jml->num_rows();
-		$config['per_page'] = 10;
-		$config['uri_segment'] = 3;
-		$config['full_tag_open'] = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
-		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-		$config['next_tag_open'] = "<li>";
-		$config['next_tagl_close'] = "</li>";
-		$config['prev_tag_open'] = "<li>";
-		$config['prev_tagl_close'] = "</li>";
-		$config['first_tag_open'] = "<li>";
+		$jml                        = $this->db->get('siswa');
+		$config['base_url']         = base_url().'/operator/view_siswa';
+		$config['total_rows']       = $jml->num_rows();
+		$config['per_page']         = 10;
+		$config['uri_segment']      = 3;
+		$config['full_tag_open']    = "<ul class='pagination pagination-sm' style='position:relative; top:-25px;'>";
+		$config['full_tag_close']   = "</ul>";
+		$config['num_tag_open']     = '<li>';
+		$config['num_tag_close']    = '</li>';
+		$config['cur_tag_open']     = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close']    = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open']    = "<li>";
+		$config['next_tagl_close']  = "</li>";
+		$config['prev_tag_open']    = "<li>";
+		$config['prev_tagl_close']  = "</li>";
+		$config['first_tag_open']   = "<li>";
 		$config['first_tagl_close'] = "</li>";
-		$config['last_tag_open'] = "<li>";
-		$config['last_tagl_close'] = "</li>";
+		$config['last_tag_open']    = "<li>";
+		$config['last_tagl_close']  = "</li>";
 
 		$this->pagination->initialize($config);
-		$data['halaman'] = $this->pagination->create_links();
-		$data['offset'] = $offset;
-		$data['data'] = $this->siswa->get_siswa($config['per_page'], $offset);
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'siswa';
+		$data['halaman']      = $this->pagination->create_links();
+		$data['offset']       = $offset;
+		$data['data']         = $this->siswa->get_siswa($config['per_page'], $offset);
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'siswa';
 		$data['main_content'] = 'operator/view_siswa';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function add_siswa()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'siswa';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'siswa';
 		$data['main_content'] = 'operator/add_siswa';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function insert_siswa()
 	{
-		$nis = $_POST['nis'];
+		$nis        = $_POST['nis'];
 		$nama_siswa = $_POST['nama_siswa'];
-		$jk = $_POST['jk'];
-		$alamat = $_POST['alamat'];
-		$kelas = $_POST['kelas'];
-    	$nama_ayah = $_POST['nama_ayah'];
-    	$pekerjaan = $_POST['pekerjaan'];
-    	$hp = $_POST['hp'];
-    	$data_siswa = array(
-    		'nis' => $nis,
-    		'nama_siswa' => $nama_siswa,
-			'jk' => $jk,
-			'alamat' => $alamat,
-			'kelas' => $kelas,
-	    	'nama_ayah' => $nama_ayah,
-	    	'pekerjaan' => $pekerjaan,
-	    	'hp' => $hp
+		$jk         = $_POST['jk'];
+		$alamat     = $_POST['alamat'];
+		$kelas      = $_POST['kelas'];
+		$nama_ayah  = $_POST['nama_ayah'];
+		$pekerjaan  = $_POST['pekerjaan'];
+		$hp         = $_POST['hp'];
+		$data_siswa = array(
+			'nis'        => $nis,
+			'nama_siswa' => $nama_siswa,
+			'jk'         => $jk,
+			'alamat'     => $alamat,
+			'kelas'      => $kelas,
+			'nama_ayah'  => $nama_ayah,
+			'pekerjaan'  => $pekerjaan,
+			'hp'         => $hp
     	);
 
     	$res = $this->siswa->insert_siswa($data_siswa);
@@ -109,41 +109,41 @@ class Operator extends CI_Controller {
 	public function edit_siswa($nis)
 	{
 		$siswa = $this->db->get_where('siswa', array('nis' => $nis))->result_array();
-		$data = array(
-    		'nis' => $siswa[0]['nis'],
-    		'nama_siswa' => $siswa[0]['nama_siswa'],
-			'jk' => $siswa[0]['jk'],
-			'alamat' => $siswa[0]['alamat'],
-			'kelas' => $siswa[0]['kelas'],
-	    	'nama_ayah' => $siswa[0]['nama_ayah'],
-	    	'pekerjaan' => $siswa[0]['pekerjaan'],
-	    	'hp' => $siswa[0]['hp']
+		$data  = array(
+			'nis'        => $siswa[0]['nis'],
+			'nama_siswa' => $siswa[0]['nama_siswa'],
+			'jk'         => $siswa[0]['jk'],
+			'alamat'     => $siswa[0]['alamat'],
+			'kelas'      => $siswa[0]['kelas'],
+			'nama_ayah'  => $siswa[0]['nama_ayah'],
+			'pekerjaan'  => $siswa[0]['pekerjaan'],
+			'hp'         => $siswa[0]['hp']
     	);
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'siswa';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'siswa';
 		$data['main_content'] = 'operator/edit_siswa';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function update_siswa()
 	{
-		$nis = $_POST['nis'];
+		$nis        = $_POST['nis'];
 		$nama_siswa = $_POST['nama_siswa'];
-		$jk = $_POST['jk'];
-		$alamat = $_POST['alamat'];
-		$kelas = $_POST['kelas'];
-    	$nama_ayah = $_POST['nama_ayah'];
-    	$pekerjaan = $_POST['pekerjaan'];
-    	$hp = $_POST['hp'];
-    	$data_siswa = array(
-    		'nis' => $nis,
-    		'nama_siswa' => $nama_siswa,
-			'jk' => $jk,
-			'alamat' => $alamat,
-			'kelas' => $kelas,
-	    	'nama_ayah' => $nama_ayah,
-	    	'pekerjaan' => $pekerjaan,
-	    	'hp' => $hp
+		$jk         = $_POST['jk'];
+		$alamat     = $_POST['alamat'];
+		$kelas      = $_POST['kelas'];
+		$nama_ayah  = $_POST['nama_ayah'];
+		$pekerjaan  = $_POST['pekerjaan'];
+		$hp         = $_POST['hp'];
+		$data_siswa = array(
+			'nis'        => $nis,
+			'nama_siswa' => $nama_siswa,
+			'jk'         => $jk,
+			'alamat'     => $alamat,
+			'kelas'      => $kelas,
+			'nama_ayah'  => $nama_ayah,
+			'pekerjaan'  => $pekerjaan,
+			'hp'         => $hp
     	);
 
     	$res = $this->siswa->replace_siswa($data_siswa);
@@ -164,15 +164,15 @@ class Operator extends CI_Controller {
 
 	public function import_siswa()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'siswa';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'siswa';
 		$data['main_content'] = 'operator/import_siswa';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function do_import_siswa()
 	{
-		$config['upload_path'] = './temp_upload/';
+		$config['upload_path']   = './temp_upload/';
 		$config['allowed_types'] = 'xls';
                 
 		$this->load->library('upload', $config);
@@ -185,7 +185,7 @@ class Operator extends CI_Controller {
 		}
 		else
 		{
-			$data = array('error' => false);
+			$data        = array('error' => false);
 			$upload_data = $this->upload->data();
 
 			//load library phpExcel
@@ -201,23 +201,23 @@ class Operator extends CI_Controller {
 			//loop from first data until last data
 			$highestRow = $objWorksheet->getHighestRow();
 			for($i=2; $i<=$highestRow; $i++){
-				$nis = $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();
+				$nis        = $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();
 				$nama_siswa = $objWorksheet->getCellByColumnAndRow(1,$i)->getValue();
-				$jk = $objWorksheet->getCellByColumnAndRow(2,$i)->getValue();
-				$alamat = $objWorksheet->getCellByColumnAndRow(3,$i)->getValue();
-				$kelas = $objWorksheet->getCellByColumnAndRow(4,$i)->getValue();
-				$nama_ayah = $objWorksheet->getCellByColumnAndRow(5,$i)->getValue();
-				$pekerjaan = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
-				$hp = $objWorksheet->getCellByColumnAndRow(7,$i)->getValue();
+				$jk         = $objWorksheet->getCellByColumnAndRow(2,$i)->getValue();
+				$alamat     = $objWorksheet->getCellByColumnAndRow(3,$i)->getValue();
+				$kelas      = $objWorksheet->getCellByColumnAndRow(4,$i)->getValue();
+				$nama_ayah  = $objWorksheet->getCellByColumnAndRow(5,$i)->getValue();
+				$pekerjaan  = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
+				$hp         = $objWorksheet->getCellByColumnAndRow(7,$i)->getValue();
 				$data_siswa = array(
-					'nis' => $nis,
-		    		'nama_siswa' => $nama_siswa,
-					'jk' => $jk,
-					'alamat' => $alamat,
-					'kelas' => $kelas,
-			    	'nama_ayah' => $nama_ayah,
-			    	'pekerjaan' => $pekerjaan,
-			    	'hp' => $hp
+					'nis'        => $nis,
+					'nama_siswa' => $nama_siswa,
+					'jk'         => $jk,
+					'alamat'     => $alamat,
+					'kelas'      => $kelas,
+					'nama_ayah'  => $nama_ayah,
+					'pekerjaan'  => $pekerjaan,
+					'hp'         => $hp
 				);
 				$res = $this->siswa->insert_siswa($data_siswa);
 				delete_files($upload_data['file_path']);
@@ -282,38 +282,38 @@ class Operator extends CI_Controller {
 	public function view_guru()
 	{
 		
-		$data['data'] = $this->guru->get_guru();
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'guru';
+		$data['data']         = $this->guru->get_guru();
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'guru';
 		$data['main_content'] = 'operator/view_guru';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function add_guru()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'guru';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'guru';
 		$data['main_content'] = 'operator/add_guru';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function insert_guru()
 	{
-		$nip = $_POST['nip'];
+		$nip       = $_POST['nip'];
 		$nama_guru = $_POST['nama_guru'];
-		$jk = $_POST['jk'];
-		$alamat = $_POST['alamat'];
-		$id_mapel = $_POST['id_mapel'];
-    	$id_user = $_POST['id_user'];
-    	$password = $_POST['password'];
-    	$data_guru = array(
-    		'nip' => $nip,
-    		'nama_guru' => $nama_guru,
-			'jk' => $jk,
-			'alamat' => $alamat,
-			'id_mapel' => $id_mapel,
-	    	'id_user' => $id_user,
-	    	'password' => md5($password)
+		$jk        = $_POST['jk'];
+		$alamat    = $_POST['alamat'];
+		$id_mapel  = $_POST['id_mapel'];
+		$id_user   = $_POST['id_user'];
+		$password  = $_POST['password'];
+		$data_guru = array(
+			'nip'       => $nip,
+			'nama_guru' => $nama_guru,
+			'jk'        => $jk,
+			'alamat'    => $alamat,
+			'id_mapel'  => $id_mapel,
+			'id_user'   => $id_user,
+			'password'  => md5($password)
     	);
 
     	$res = $this->guru->insert_guru($data_guru);
@@ -327,36 +327,36 @@ class Operator extends CI_Controller {
 	{
 		$guru = $this->db->get_where('guru', array('nip' => $nip))->result_array();
 		$data = array(
-    		'nip' => $guru[0]['nip'],
-    		'nama_guru' => $guru[0]['nama_guru'],
-			'jk' => $guru[0]['jk'],
-			'alamat' => $guru[0]['alamat'],
-			'id_mapel' => $guru[0]['id_mapel'],
-	    	'id_user' => $guru[0]['id_user']
+			'nip'       => $guru[0]['nip'],
+			'nama_guru' => $guru[0]['nama_guru'],
+			'jk'        => $guru[0]['jk'],
+			'alamat'    => $guru[0]['alamat'],
+			'id_mapel'  => $guru[0]['id_mapel'],
+			'id_user'   => $guru[0]['id_user']
     	);
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'guru';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'guru';
 		$data['main_content'] = 'operator/edit_guru';
 		$this->load->view('template/operator',$data);
 	}
 
 	public function update_guru()
 	{
-		$nip = $_POST['nip'];
+		$nip       = $_POST['nip'];
 		$nama_guru = $_POST['nama_guru'];
-		$jk = $_POST['jk'];
-		$alamat = $_POST['alamat'];
-		$id_mapel = $_POST['id_mapel'];
-    	$id_user = $_POST['id_user'];
-    	$password = $_POST['password'];
-    	$data_guru = array(
-    		'nip' => $nip,
-    		'nama_guru' => $nama_guru,
-			'jk' => $jk,
-			'alamat' => $alamat,
-			'id_mapel' => $id_mapel,
-	    	'id_user' => $id_user,
-	    	'password' => md5($password)
+		$jk        = $_POST['jk'];
+		$alamat    = $_POST['alamat'];
+		$id_mapel  = $_POST['id_mapel'];
+		$id_user   = $_POST['id_user'];
+		$password  = $_POST['password'];
+		$data_guru = array(
+			'nip'       => $nip,
+			'nama_guru' => $nama_guru,
+			'jk'        => $jk,
+			'alamat'    => $alamat,
+			'id_mapel'  => $id_mapel,
+			'id_user'   => $id_user,
+			'password'  => md5($password)
     	);
 
     	$res = $this->guru->replace_guru($data_guru);
@@ -377,8 +377,8 @@ class Operator extends CI_Controller {
 
 	public function import_guru()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'guru';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'guru';
 		$data['main_content'] = 'operator/import_guru';
 		$this->load->view('template/operator',$data);
 	}
@@ -486,9 +486,9 @@ class Operator extends CI_Controller {
 	//function mapel
 	public function view_mapel()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['data'] = $this->operator->get_mapel();
-		$data['menu'] = 'mapel';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['data']         = $this->operator->get_mapel();
+		$data['menu']         = 'mapel';
 		$data['main_content'] = 'operator/view_mapel';
 		$this->load->view('template/operator',$data);
 	}

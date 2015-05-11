@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class Guru extends CI_Controller {
 	function __construct()
 	{
@@ -22,7 +23,7 @@ class Guru extends CI_Controller {
 	public function is_logged_in()
 	{
 		$is_logged_in = $this->session->userdata('is_logged_in');
-		$level = $this->session->userdata('level');
+		$level        = $this->session->userdata('level');
 		if (!isset($is_logged_in) || $is_logged_in != TRUE || $level != 'guru') {
 			redirect ('login');
 		}
@@ -30,31 +31,31 @@ class Guru extends CI_Controller {
 
 	public function home()
 	{
-		$data['data'] = $this->guru->get_absen();
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'home';
+		$data['data']         = $this->guru->get_absen();
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'home';
 		$data['main_content'] = 'guru/home';
 		$this->load->view('template/guru', $data);
 	}
 
 	public function absensi()
 	{
-		$data['nama'] = $this->session->userdata('nama');
-		$data['menu'] = 'absensi';
+		$data['nama']         = $this->session->userdata('nama');
+		$data['menu']         = 'absensi';
 		$data['main_content'] = 'guru/absensi';
 		$this->load->view('template/guru', $data);
 	}
 
 	public function insert_absen()
 	{
-		$id_user = $this->session->userdata('id_user');
-		$nis = $_POST['nis'];
-		$tanggal = date('Y-m-d');
+		$id_user    = $this->session->userdata('id_user');
+		$nis        = $_POST['nis'];
+		$tanggal    = date('Y-m-d');
 		$keterangan = $_POST['keterangan'];
-    	$data_absen = array(
-    		'tanggal' => $tanggal,
-    		'nis' => $nis,
-			'id_user' => $id_user,
+		$data_absen = array(
+			'tanggal'    => $tanggal,
+			'nis'        => $nis,
+			'id_user'    => $id_user,
 			'keterangan' => $keterangan
     	);
 

@@ -36,7 +36,12 @@ class Login extends CI_Controller {
 
 	public function logout()
     {
-        $this->session->unset_userdata(array('nama'=> '', 'level'=> '', 'login' => FALSE));
+        $this->session->unset_userdata(
+        	array(
+				'nama'  => '',
+				'level' => '',
+				'login' => FALSE
+			));
         $this->session->sess_destroy();
 		redirect('login');
     }
