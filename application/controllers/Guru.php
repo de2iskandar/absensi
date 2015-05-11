@@ -40,6 +40,7 @@ class Guru extends CI_Controller {
 
 	public function absensi()
 	{
+		$data['data']         = $this->guru->get_siswa();
 		$data['nama']         = $this->session->userdata('nama');
 		$data['menu']         = 'absensi';
 		$data['main_content'] = 'guru/absensi';

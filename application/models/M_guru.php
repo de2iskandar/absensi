@@ -69,5 +69,11 @@ class M_guru extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	public function get_siswa()
+	{
+		$query = $this->db->get('siswa');
+		return $query->result_array();
+	}
 	
 }
