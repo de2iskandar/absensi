@@ -53,16 +53,50 @@ class Guru extends CI_Controller {
 		$nis        = $_POST['nis'];
 		$tanggal    = date('Y-m-d');
 		$keterangan = $_POST['keterangan'];
-		$data_absen = array(
-			'tanggal'    => $tanggal,
-			'nis'        => $nis,
-			'id_guru'    => $id_guru,
-			'keterangan' => $keterangan
-    	);
+		$data = array(
+				'tanggal'    => $tanggal,
+				'nis'		 => $nis,
+				'id_guru'    => $id_guru,
+				'keterangan' => $keterangan
+			);
+		$res = $this->absen->insert_absen($data);
+		redirect ('guru/home');
+	}
 
-    	$res = $this->absen->insert_absen($data_absen);
+	public function insert_absen_all()
+	{
+		for($i=0; $i<=num_rows(); $i++){
+			$id_guru    = $this->session->userdata('id_guru');
+			$nis        = $_POST['nis'][$i];
+			$tanggal    = date('Y-m-d');
+			$keterangan = $_POST['keterangan'][$i];
+			$data = array(
+				'tanggal'    => $tanggal,
+				'nis'		 => $nis,
+				'id_guru'    => $id_guru,
+				'keterangan' => $keterangan
+			);
+			$res = $this->absen->insert_absen($data);
+		}
     	if ($res>=1) {
     	 	redirect ('guru/home');
     	} 
+
+	}
+
+	public function send_sms()
+	{
+		
+		$data = $this->absen->get_alpha();
+		foreach ($data as $d) {
+			$tanggal=$d['tanggal'];
+			$nama_siswa=$d['nama_siswa'];
+			$no_tujuan=$d['hp'];
+		}
+		$message = 'Kami memberitahukan bahwa pada '.$tanggal.', '.$nama_siswa.' tidak masuk sekolah dengan tanpa keterangan.';
+
+		exec('c:\xampp\htdocs\absensi\gammu\bin\gammu-smsd-inject.exe -c c:\xampp\htdocs\absensi\gammu\bin\smsdrc EMS '.$no_tujuan.' -text "'.$message.'"');
+
+		redirect ('guru');
 	}
 }

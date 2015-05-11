@@ -38,6 +38,6 @@
 				<?php } ?>
 		</table>
 		<?php } ?>
-		<button type="submit" name="btn_tambah" value="tambah" class="btn btn-primary">Kirim SMS Absensi</button>
+		<a href="<?php echo base_url()."guru/send_sms";?>"><button type="submit" name="btn_tambah" value="tambah" class="btn btn-primary">Kirim SMS Siswa Absen Tanpa Keterangan</button></a>
 	</div>
 </div>
