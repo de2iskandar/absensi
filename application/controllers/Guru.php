@@ -31,7 +31,7 @@ class Guru extends CI_Controller {
 
 	public function home()
 	{
-		$data['data']         = $this->guru->get_absen();
+		$data['data']         = $this->absen->get_absen();
 		$data['nama']         = $this->session->userdata('nama');
 		$data['menu']         = 'home';
 		$data['main_content'] = 'guru/home';
@@ -40,7 +40,7 @@ class Guru extends CI_Controller {
 
 	public function absensi()
 	{
-		$data['data']         = $this->guru->get_siswa();
+		$data['data']         = $this->absen->get_siswa();
 		$data['nama']         = $this->session->userdata('nama');
 		$data['menu']         = 'absensi';
 		$data['main_content'] = 'guru/absensi';

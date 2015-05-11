@@ -55,25 +55,5 @@ class M_guru extends CI_Model {
 		return $query;
 
 	}
-
-	public function get_absen()
-	{
-		$this->db->select('*');
-		$this->db->from('absen');
-		$this->db->join('siswa', 'absen.nis = siswa.nis');
-		$this->db->join('guru', 'absen.id_guru = guru.id_guru');
-		$this->db->where('guru.id_guru', $this->session->userdata('id_guru'));
-		$this->db->where('absen.tanggal', date('Y-m-d'));
-		$query = $this->db->get();
-
-
-		return $query->result_array();
-	}
-
-	public function get_siswa()
-	{
-		$query = $this->db->get('siswa');
-		return $query->result_array();
-	}
 	
 }
