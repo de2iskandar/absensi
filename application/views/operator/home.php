@@ -7,6 +7,12 @@
 		</div>
 </div>
 	<div class="panel-body">
+	<?php if ($data == NULL ) { ?>
+			<div class="alert alert-info alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					data kosong.
+			</div>
+		<?php } else { ?>
 		<table class="table table-bordered table-hover">
 			<tr>
 				<th>Tanggal</th>
@@ -28,5 +34,6 @@
 				</tr>
 				<?php } ?>
 		</table>
+		<?php } ?>
 	</div>
 </div>

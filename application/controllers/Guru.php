@@ -48,14 +48,14 @@ class Guru extends CI_Controller {
 
 	public function insert_absen()
 	{
-		$id_user    = $this->session->userdata('id_user');
+		$id_guru    = $this->session->userdata('id_guru');
 		$nis        = $_POST['nis'];
 		$tanggal    = date('Y-m-d');
 		$keterangan = $_POST['keterangan'];
 		$data_absen = array(
 			'tanggal'    => $tanggal,
 			'nis'        => $nis,
-			'id_user'    => $id_user,
+			'id_guru'    => $id_guru,
 			'keterangan' => $keterangan
     	);
 

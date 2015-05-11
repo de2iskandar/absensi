@@ -19,7 +19,7 @@ class M_operator extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('absen');
 		$this->db->join('siswa', 'absen.nis = siswa.nis');
-		$this->db->join('guru', 'guru.id_user = absen.id_user');
+		$this->db->join('guru', 'guru.id_guru = absen.id_guru');
 		$query = $this->db->get();
 		return $query->result_array();
 	}

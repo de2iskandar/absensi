@@ -12,7 +12,7 @@ class M_login extends CI_Model {
                           ->limit(1)
                           ->get('operator');
 
-        $qg = $this->db->where('id_user', $username)
+        $qg = $this->db->where('id_guru', $username)
                           ->where('password', $password)
                           ->limit(1)
                           ->get('guru');
@@ -32,7 +32,7 @@ class M_login extends CI_Model {
             foreach ($qg->result() as $sess) {
                 $sess_data['is_logged_in'] = TRUE;
                 $sess_data['nama'] = $sess->nama_guru;
-                $sess_data['id_user'] = $sess->id_user;
+                $sess_data['id_guru'] = $sess->id_guru;
                 $sess_data['level'] = 'guru';
                 $this->session->set_userdata($sess_data);
             }
@@ -42,10 +42,5 @@ class M_login extends CI_Model {
         {
             return FALSE;
         }
-    }
-
-    public function logout()
-    {
-
     }
 }
